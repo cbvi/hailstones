@@ -4,7 +4,7 @@ procedure Hailstones
 is
    type Number is mod 2 ** 64;
 
-   Total_Tasks : constant Number := 6;
+   Total_Tasks : constant Number := 12;
    Upper_Limit : constant Number := 100_000_000;
 
    function Count_Steps (Initial : Number) return Number;
@@ -59,8 +59,9 @@ is
    end Calculate_Task;
 
    task body Calculate_Task is
-      N : Number;
+      N       : Number;
       Current : Number := 0;
+      Longest : Number := 0;
    begin
       accept Start (Initial : Number) do
          N := Initial;
@@ -68,7 +69,10 @@ is
       loop
          exit when N >= Upper_Limit;
          Current := Count_Steps (N);
-         Calculated_Object.Propose (Current, N);
+         if Current > Longest then
+            Calculated_Object.Propose (Current, N);
+            Longest := Current;
+         end if;
 
          N := N + Total_Tasks;
       end loop;

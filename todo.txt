@@ -1,1 +1,0 @@
-* Investigate if sharing the object is causing locking contention
