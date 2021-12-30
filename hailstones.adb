@@ -5,7 +5,7 @@ is
    type Number is mod 2 ** 64;
 
    Total_Tasks : constant Number := 12;
-   Upper_Limit : constant Number := 100_000_000;
+   Upper_Limit : constant Number := 1_000_000_000;
 
    function Count_Steps (Initial : Number) return Number;
 
@@ -62,6 +62,7 @@ is
       N       : Number;
       Current : Number := 0;
       Longest : Number := 0;
+      Best    : Number;
    begin
       accept Start (Initial : Number) do
          N := Initial;
@@ -70,12 +71,13 @@ is
          exit when N >= Upper_Limit;
          Current := Count_Steps (N);
          if Current > Longest then
-            Calculated_Object.Propose (Current, N);
             Longest := Current;
+            Best := N;
          end if;
 
          N := N + Total_Tasks;
       end loop;
+      Calculated_Object.Propose (Longest, Best);
       Calculated_Object.Finished;
    end Calculate_Task;
 
