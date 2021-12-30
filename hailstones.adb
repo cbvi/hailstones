@@ -2,7 +2,7 @@ with Ada.Text_IO;
 
 procedure Hailstones
 is
-   N : Natural := 100000;
+   N : Natural := 1000000;
 begin
    loop
       Ada.Text_IO.Put_Line (Natural'Image (N));
