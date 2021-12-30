@@ -4,6 +4,6 @@ project default is
    for main use ("hailstones.adb");
 
    package Compiler is
-      for Switches ("ada") use ("-gnatwa");
+      for Switches ("ada") use ("-gnatwa", "-O3", "-gnatn");
    end Compiler;
 end default;
