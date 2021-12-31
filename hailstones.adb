@@ -62,8 +62,7 @@ is
       accept Start (Initial : Number) do
          N := Initial;
       end Start;
-      loop
-         exit when N >= Upper_Limit;
+      while N < Upper_Limit loop
          Current := Count_Steps (N);
          if Current > Longest then
             Longest := Current;
