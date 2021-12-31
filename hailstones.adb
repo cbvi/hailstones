@@ -98,14 +98,17 @@ is
       return Steps;
    end Count_Steps;
 
-   Tasks : array (1.. Total_Tasks) of Calculate_Task;
    Longest_Steps : Number;
    Best_Instigator : Number;
 begin
-   for I in Tasks'range loop
-      Tasks (I).Start (I);
-      Ada.Text_IO.Put_Line ("Started task");
-   end loop;
+   declare
+      Tasks : array (1 .. Total_Tasks) of Calculate_Task;
+   begin
+      for I in Tasks'range loop
+         Tasks (I).Start (I);
+         Ada.Text_IO.Put_Line ("Started task");
+      end loop;
+   end;
 
    Calculated_Object.Get_Steps (Longest_Steps);
    Calculated_Object.Get_Best  (Best_Instigator);
