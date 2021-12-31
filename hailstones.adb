@@ -10,18 +10,24 @@ is
    function Count_Steps (Initial : Number) return Number;
 
    protected Calculated_Object is
-      procedure Propose (Steps : Number; N : Number);
-      procedure Finished;
+      procedure Finish (Steps : Number; N : Number);
 
       entry Get_Steps (V : out Number);
       entry Get_Best  (V : out Number);
    private
+      procedure Propose (Steps : Number; N : Number);
       Count : Number := 0;
       Best  : Number := 0;
       Busy  : Number := Total_Tasks;
    end Calculated_Object;
 
    protected body Calculated_Object is
+      procedure Finish (Steps : Number; N : Number) is
+      begin
+         Propose (Steps, N);
+         Busy := Busy - 1;
+      end Finish;
+
       procedure Propose (Steps : Number; N : Number) is
       begin
          if Steps > Count then
@@ -29,11 +35,6 @@ is
             Best  := N;
          end if;
       end Propose;
-
-      procedure Finished is
-      begin
-         Busy := Busy - 1;
-      end Finished;
 
       entry Get_Steps (V : out Number) when Busy = 0
       is
@@ -71,8 +72,7 @@ is
 
          N := N + Total_Tasks;
       end loop;
-      Calculated_Object.Propose (Longest, Best);
-      Calculated_Object.Finished;
+      Calculated_Object.Finish (Longest, Best);
    end Calculate_Task;
 
    function Count_Steps (Initial : Number) return Number
