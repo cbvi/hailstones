@@ -5,5 +5,6 @@ project default is
 
    package Compiler is
       for Switches ("ada") use ("-gnatwa", "-O3", "-gnatn");
+      --  for Switches ("ada") use ("-gnatwa", "-g");
    end Compiler;
 end default;
