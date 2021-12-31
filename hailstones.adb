@@ -19,7 +19,6 @@ is
       Count : Number := 0;
       Best  : Number := 0;
       Busy  : Number := Total_Tasks;
-      Ready : Boolean := False;
    end Calculated_Object;
 
    protected body Calculated_Object is
@@ -34,20 +33,15 @@ is
       procedure Finished is
       begin
          Busy := Busy - 1;
-         if Busy = 0 then
-            Ready := True;
-         end if;
       end Finished;
 
-      entry Get_Steps (V : out Number)
-         when Ready
+      entry Get_Steps (V : out Number) when Busy = 0
       is
       begin
          V := Count;
       end Get_Steps;
 
-      entry Get_Best (V : out Number)
-         when Ready
+      entry Get_Best (V : out Number) when Busy = 0
       is
       begin
          V := Best;
